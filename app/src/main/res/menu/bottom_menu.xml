@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/chat_bottom"
+        android:icon="@drawable/masseng_botom"
+        android:title="" />
+
+    <item
+        android:id="@+id/people_bottom"
+        android:icon="@drawable/contact_bottom"
+        android:title="" />
+    <item
+        android:id="@+id/settings_bottom"
+        android:icon="@drawable/settings_bottom"
+        android:title="" />
+
+</menu>

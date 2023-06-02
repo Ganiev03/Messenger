@@ -1,0 +1,116 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="100dp"
+            app:cardElevation="0dp">
+            <ImageView
+                android:layout_width="167dp"
+                android:layout_height="167dp"
+                android:src="@drawable/person_code" />
+        </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            app:cardCornerRadius="100dp"
+            app:cardElevation="0dp">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profiles_image"
+                android:layout_width="115dp"
+                android:layout_height="115dp"
+                app:civ_border_color="#FF000000"/>
+        </androidx.cardview.widget.CardView>
+        <ImageView
+            android:layout_marginTop="110dp"
+            android:layout_marginStart="113dp"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/messanger_icon" />
+    </FrameLayout>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="40dp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:text="MESSENGER"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/editEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:background="@drawable/backgrond_textview"
+        android:hint="Email"
+        android:textSize="20dp" />
+
+
+    <EditText
+        android:id="@+id/editPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="35dp"
+
+        android:background="@drawable/backgrond_textview"
+        android:hint="Password (Min 7 character)"
+        android:inputType="numberPassword" />
+
+    <EditText
+        android:id="@+id/user_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginEnd="35dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/backgrond_textview"
+        android:hint="User name"
+        android:textSize="20dp" />
+    <Button
+        android:id="@+id/button_registration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:backgroundTint="@color/white"
+        android:textSize="20sp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:text="Регистрация"
+        android:textColor="@color/black" />
+    <Button
+
+        android:id="@+id/button_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
+        android:textSize="15dp"
+        android:fontFamily="@font/sf_pro_text_bold"
+        android:text="Войти"
+        android:textColor="@color/black" />
+
+</LinearLayout>

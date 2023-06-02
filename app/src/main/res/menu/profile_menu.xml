@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+        <item
+            android:id="@+id/chat_bottom"
+            android:icon="@drawable/call_profile"
+            android:title="" />
+
+        <item
+            android:id="@+id/people_bottom"
+            android:icon="@drawable/video_call"
+            android:iconTint="@color/black"
+            android:title="" />
+        <item
+            android:id="@+id/settings_bottom"
+            android:icon="@drawable/settings_bottom"
+            android:title="" />
+
+    </menu>

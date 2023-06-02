@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "59018074718",
+    "firebase_url": "https://messenger-ui-21cba-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "messenger-ui-21cba",
+    "storage_bucket": "messenger-ui-21cba.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:59018074718:android:db396bd94ef48b5a2832cf",
+        "android_client_info": {
+          "package_name": "com.eskhata.messengerui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "59018074718-845dhk9euulkfseu94thlsrjp3dlh614.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDSdogDtb9Iw54Ff_gfHL4i-go1pUvGpqA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "59018074718-4vqtapsb6kv0erjp4d8mrp49g7kadt4h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
