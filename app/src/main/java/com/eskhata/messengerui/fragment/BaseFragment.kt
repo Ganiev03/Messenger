@@ -1,6 +1,5 @@
 package com.eskhata.messengerui.fragment
 
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
@@ -14,11 +13,10 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-import com.squareup.picasso.Picasso
 import kotlin.properties.Delegates
 
 abstract class BaseFragment(val res: Int) : Fragment(res) {
-     var currentUser: User? = null
+    var currentUser: User? = null
     var firebaseAuth: FirebaseAuth = FirebaseAuth.getInstance()
     var bottomNavigationView: BottomNavigationView by Delegates.notNull()
 
@@ -29,7 +27,8 @@ abstract class BaseFragment(val res: Int) : Fragment(res) {
         }
         return true
     }
-     fun currentUser(imageView: ImageView, textView: TextView) {
+
+    fun currentUser(imageView: ImageView, textView: TextView) {
         val uid = FirebaseAuth.getInstance().uid ?: ""
         val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
         ref.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -37,19 +36,15 @@ abstract class BaseFragment(val res: Int) : Fragment(res) {
                 currentUser = snapshot.getValue(User::class.java)
                 Glide.with(imageView).load(currentUser?.profileImageUrl).into(imageView)
             }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
+
+            override fun onCancelled(error: DatabaseError) = Unit
         })
     }
-     fun initListeners(toolbar: MaterialToolbar) {
-         toolbar.setNavigationOnClickListener {
-             activity?.onBackPressedDispatcher?.onBackPressed()
-         }
-     }
-    fun backSetOnClick(view: View){
-        view.setOnClickListener {
+
+    fun initListeners(toolbar: MaterialToolbar) {
+        toolbar.setNavigationOnClickListener {
             activity?.onBackPressedDispatcher?.onBackPressed()
         }
     }
+
 }

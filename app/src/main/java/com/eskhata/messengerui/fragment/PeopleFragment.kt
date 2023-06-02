@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.eskhata.messengerui.R
 import com.eskhata.messengerui.adapter.PeopleRecyclerAdapter
+import com.eskhata.messengerui.`interface`.CustomChildEventListener
 import com.eskhata.messengerui.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.ChildEventListener
@@ -17,7 +18,7 @@ import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
 import de.hdodenhof.circleimageview.CircleImageView
 
-class PeopleFragment : BaseFragment(R.layout.people_fragment), PeopleRecyclerAdapter.AdapterEvents {
+class PeopleFragment : BaseFragment(R.layout.people_fragment), PeopleRecyclerAdapter.AdapterEvents,CustomChildEventListener {
     private val adapter by lazy { PeopleRecyclerAdapter(this) }
     private lateinit var peopleCurrentPhoto: CircleImageView
     private lateinit var peopleCurrentName: TextView
@@ -36,7 +37,8 @@ class PeopleFragment : BaseFragment(R.layout.people_fragment), PeopleRecyclerAda
 
     private fun fetchUsers() {
         val ref = FirebaseDatabase.getInstance().getReference("/users")
-        ref.addChildEventListener(object : ChildEventListener {
+        ref.addChildEventListener(this)
+    }
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 setUserIfOnline(snapshot)
             }
@@ -45,20 +47,8 @@ class PeopleFragment : BaseFragment(R.layout.people_fragment), PeopleRecyclerAda
                 setUserIfOnline(snapshot)
             }
 
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
-            }
 
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        })
-    }
-    fun setUserIfOnline(snapshot: DataSnapshot){
+    private fun setUserIfOnline(snapshot: DataSnapshot){
         val user = snapshot.getValue(User::class.java)
         if (FirebaseAuth.getInstance().uid != user?.uid) {
             user?.apply {

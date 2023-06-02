@@ -1,18 +1,16 @@
 package com.eskhata.messengerui.vm
 
 import android.widget.EditText
-import android.widget.ImageView
 import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.RecyclerView
 import com.eskhata.messengerui.adapter.ChatRecyclerAdapter
+import com.eskhata.messengerui.`interface`.CustomChildEventListener
 import com.eskhata.messengerui.model.ChatFrom
 import com.eskhata.messengerui.model.ChatMessages
 import com.eskhata.messengerui.model.ChatTo
 import com.eskhata.messengerui.model.User
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 
 class MessengerViewModel : ViewModel() {
@@ -20,7 +18,7 @@ class MessengerViewModel : ViewModel() {
         val fromId = FirebaseAuth.getInstance().uid
         val toId = user?.uid
         val ref = FirebaseDatabase.getInstance().getReference("/user-messages/$fromId/$toId")
-        ref.addChildEventListener(object : ChildEventListener {
+        ref.addChildEventListener(object : CustomChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val chatMessage = snapshot.getValue(ChatMessages::class.java)
                 if (chatMessage?.fromId == FirebaseAuth.getInstance().uid) {
@@ -30,25 +28,8 @@ class MessengerViewModel : ViewModel() {
                     recyclerView.scrollToPosition(adapter.itemCount - 1)
                 }
             }
-
-            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onChildRemoved(snapshot: DataSnapshot) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        }
-        )
-
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) = Unit
+        })
     }
 
     fun preFromSendMessage(
@@ -56,7 +37,6 @@ class MessengerViewModel : ViewModel() {
         editText: EditText,
         adapter: ChatRecyclerAdapter,
         recyclerView: RecyclerView
-
     ) {
         val text = editText.text.toString()
         val fromId = FirebaseAuth.getInstance().uid

@@ -122,8 +122,15 @@ class SettingsFragment : BaseFragment(R.layout.setting_fragment),
             7 -> {
                 firebaseAuth.signOut()
                 startTransaction(R.id.activity_container, RegisterFragment())
+                updateUserStatus("offline", System.currentTimeMillis())
             }
         }
+    }
+    private fun updateUserStatus(status: String, time: Long) {
+        val uid = FirebaseAuth.getInstance().uid ?: ""
+        val userRef = FirebaseDatabase.getInstance().getReference("/users/$uid")
+        userRef.child("status").setValue(status)
+        userRef.child("timeStatus").setValue(time)
     }
 }
 

@@ -2,7 +2,6 @@ package com.eskhata.messengerui.fragment
 
 import android.app.Activity
 import android.content.Intent
-import android.content.res.ColorStateList
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
@@ -10,20 +9,15 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.widget.doOnTextChanged
-import com.bumptech.glide.Glide.init
+import androidx.fragment.app.viewModels
 import com.eskhata.messengerui.R
-import com.eskhata.messengerui.model.User
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.storage.FirebaseStorage
+import com.eskhata.messengerui.vm.RegisterViewModel
 import de.hdodenhof.circleimageview.CircleImageView
-import java.util.UUID
 
 class RegisterFragment : BaseFragment(R.layout.fragment_register) {
-
+    private val viewModel: RegisterViewModel by viewModels()
     private lateinit var editTextEmail: EditText
     private lateinit var editTextPassword: EditText
     private lateinit var editTextUser: EditText
@@ -37,10 +31,10 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         register()
 
         editTextPassword.doOnTextChanged { text, _, _, _ ->
-          val colorId = if (checkNotNull(text).length < 7 ){
-              android.R.color.holo_red_light
-            }else  R.color.black
-            editTextPassword.setTextColor(ContextCompat.getColor(view.context,colorId))
+            val colorId = if (checkNotNull(text).length < 7) {
+                android.R.color.holo_red_light
+            } else R.color.black
+            editTextPassword.setTextColor(ContextCompat.getColor(view.context, colorId))
         }
         profilesImage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
@@ -53,7 +47,7 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
                 val password = editTextPassword.text.toString()
                 firebaseAuth.createUserWithEmailAndPassword(email, password)
                     .addOnSuccessListener {
-                        uploadImageToFirebaseStorage()
+                        viewModel.uploadImageToFirebaseStorage(selectedPhotoUri!!,editTextUser)
                     }.addOnCompleteListener { task ->
                         if (task.isSuccessful) {
                             register()
@@ -87,34 +81,6 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
         }
     }
 
-    private fun uploadImageToFirebaseStorage() {
-        if (selectedPhotoUri == null) return
-        val fileName = UUID.randomUUID().toString()
-        val ref = FirebaseStorage.getInstance().getReference("/images/$fileName")
-        ref.putFile(selectedPhotoUri!!)
-            .addOnSuccessListener {
-                ref.downloadUrl.addOnSuccessListener {
-                    saveUserToFirebaseStorage(it.toString())
-                }
-            }.addOnFailureListener {
-                Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun saveUserToFirebaseStorage(profileImageUrl: String) {
-        val uid = FirebaseAuth.getInstance().uid ?: ""
-        val ref = FirebaseDatabase.getInstance().getReference("/users/$uid")
-        val user = User(uid, editTextUser.text.toString(), profileImageUrl, "")
-        ref.setValue(user)
-            .addOnSuccessListener {
-                Toast.makeText(context, "Welcome in Messenger Ui", Toast.LENGTH_LONG).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(context, it.message, Toast.LENGTH_LONG).show()
-            }
-    }
-
-
     private fun register() {
         if (firebaseAuth.currentUser != null) {
             parentFragmentManager.beginTransaction()
@@ -124,7 +90,6 @@ class RegisterFragment : BaseFragment(R.layout.fragment_register) {
     }
 
     private fun init(view: View) {
-
         editTextEmail = view.findViewById(R.id.editEmail)
         profilesImage = view.findViewById(R.id.profiles_image)
         editTextPassword = view.findViewById(R.id.editPassword)

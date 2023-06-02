@@ -16,6 +16,7 @@ import android.content.Context
 import android.content.Context.INPUT_METHOD_SERVICE
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.viewModels
 import com.eskhata.messengerui.R
 import com.eskhata.messengerui.adapter.ChatRecyclerAdapter
 import com.eskhata.messengerui.model.User
@@ -27,7 +28,7 @@ import java.util.Locale
 
 
 class MessengerFragment : BaseFragment(R.layout.message_fragment) {
-    private val viewModel: MessengerViewModel by lazy { ViewModelProvider(this)[MessengerViewModel::class.java] }
+    private val viewModel: MessengerViewModel by viewModels()
     private lateinit var editText: EditText
     private lateinit var toolbar: Toolbar
     private lateinit var chatUserName: TextView

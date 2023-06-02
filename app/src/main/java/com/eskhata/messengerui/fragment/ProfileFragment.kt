@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import android.widget.Toolbar
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,15 +17,13 @@ import com.squareup.picasso.Picasso
 import de.hdodenhof.circleimageview.CircleImageView
 
 class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
-    private val profileViewModel: ProfileViewModel by lazy { ViewModelProvider(this)[ProfileViewModel::class.java] }
+    private val profileViewModel: ProfileViewModel by viewModels()
     private lateinit var profileImageview: CircleImageView
     private lateinit var profileName: TextView
     private lateinit var toolbar: MaterialToolbar
     private var user: User? = null
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         profileImageview = view.findViewById(R.id.profile_imageview)
         profileName = view.findViewById(R.id.profile_name)
         toolbar = view.findViewById(R.id.back_profile)
@@ -39,8 +38,6 @@ class ProfileFragment : BaseFragment(R.layout.profile_fragment) {
         chatRecyclerview.layoutManager = LinearLayoutManager(context)
         chatRecyclerview.adapter = adapter
     }
-
-
 
     companion object {
         fun newInstance(user: User): ProfileFragment {

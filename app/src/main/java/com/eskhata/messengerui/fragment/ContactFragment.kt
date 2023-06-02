@@ -2,6 +2,7 @@ package com.eskhata.messengerui.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ import com.eskhata.messengerui.vm.ContactViewModel
 class ContactFragment : BaseFragment(R.layout.contact_fragment),
     ContactRecyclerAdapter.AdapterEvents {
     private val adapter by lazy { ContactRecyclerAdapter(this) }
-    private val viewModel: ContactViewModel by lazy { ViewModelProvider(this)[ContactViewModel::class.java] }
+    private val viewModel: ContactViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         init(view)

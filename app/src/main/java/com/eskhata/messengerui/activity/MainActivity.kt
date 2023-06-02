@@ -29,18 +29,12 @@ class MainActivity : AppCompatActivity(R.layout.activity_main) {
         val userRef = FirebaseDatabase.getInstance().getReference("/users/$uid")
         userRef.child("status").setValue(status)
         userRef.child("timeStatus").setValue(time)
-            .addOnSuccessListener {
-                Toast.makeText(this, "User status updated", Toast.LENGTH_SHORT).show()
-            }
-            .addOnFailureListener {
-                Toast.makeText(this, "Failed to update user status", Toast.LENGTH_SHORT).show()
-            }
+
     }
 
 
     override fun onResume() {
         super.onResume()
-
         val currentFragment = supportFragmentManager.findFragmentById(fragmentContainer.id)
         if (currentFragment is MainFragment) {
             updateUserStatus("online", -1)

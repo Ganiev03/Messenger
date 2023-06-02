@@ -18,10 +18,7 @@ class SignInFragment : BaseFragment(R.layout.sign_in_fragment) {
     private lateinit var toolbar: MaterialToolbar
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        editTextPassword=view.findViewById(R.id.editPassword)
-        editTextUser=view.findViewById(R.id.user_name)
-        buttonSignIn=view.findViewById(R.id.button_sign_in)
-        toolbar=view.findViewById(R.id.toolbar)
+        init(view)
         initListeners(toolbar)
         buttonSignIn.setOnClickListener {
             if (editTextUser.text.toString() != "" && editTextPassword.text.toString() != "") {
@@ -37,6 +34,12 @@ class SignInFragment : BaseFragment(R.layout.sign_in_fragment) {
                     }
             }
         }
+    }
+    private fun init(view: View){
+        editTextPassword=view.findViewById(R.id.editPassword)
+        editTextUser=view.findViewById(R.id.user_name)
+        buttonSignIn=view.findViewById(R.id.button_sign_in)
+        toolbar=view.findViewById(R.id.toolbar)
     }
     private fun register() {
         if (firebaseAuth.currentUser != null) {

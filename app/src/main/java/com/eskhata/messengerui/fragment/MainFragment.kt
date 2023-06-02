@@ -19,7 +19,7 @@ class MainFragment : BaseFragment(R.layout.main_fragment), NavigationBarView.OnI
        return when (item.itemId) {
             R.id.chat_bottom -> startTransaction(R.id.main_container,ChatsFragment())
             R.id.people_bottom -> startTransaction(R.id.main_container,PeopleFragment())
-            R.id.settings_bottom -> startTransaction(R.id.activity_container,SettingsFragment())
+            R.id.settings_bottom -> startTransaction(R.id.main_container,SettingsFragment())
            else -> false
        }
      }
@@ -29,6 +29,7 @@ class MainFragment : BaseFragment(R.layout.main_fragment), NavigationBarView.OnI
         when (bottomNavigationView.selectedItemId) {
             R.id.chat_bottom -> startTransaction(R.id.main_container,ChatsFragment())
             R.id.people_bottom -> startTransaction(R.id.main_container,PeopleFragment())
+            R.id.settings_bottom -> startTransaction(R.id.main_container,SettingsFragment())
         }
     }
 }
